@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WhatsApp Group Presence Report Bot">
+    <title>WhatsApp Group Presence Report</title>
+    <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>WhatsApp Group Presence Report Bot</h1>
+        </nav>
+    </header>
+    <main>
+        <!-- Placeholder for page-specific content -->
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2023 WhatsApp Group Presence Report Bot. All rights reserved.</p>
+    </footer>
+</body>
+</html>
+```
+
+### Step 4: Review the Code
+1. **HTML Structure**:
+   - The `<head>` section includes metadata, a title, and a link to the CSS file located in the `static/css` directory.
+   - The `<body>` section contains a header, a main content area with a Jinja2 block for extensibility, and a footer.
+2. **Flask Conventions**:
+   - The `url_for` function is used to dynamically generate the path to the CSS file, ensuring compatibility with Flask's static file handling.
+   - Jinja2 syntax (`{% block content %}` and `{% endblock %}`) is used to allow other templates to extend `base.html`.
+3. **Completeness**:
+   - The file is fully functional and adheres to the requirements.
+   - No placeholders or TODOs are left in the code.
+
+### Final Output
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WhatsApp Group Presence Report Bot">
+    <title>WhatsApp Group Presence Report</title>
+    <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>WhatsApp Group Presence Report Bot</h1>
+        </nav>
+    </header>
+    <main>
+        <!-- Placeholder for page-specific content -->
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2023 WhatsApp Group Presence Report Bot. All rights reserved.</p>
+    </footer>
+</body>
+</html>

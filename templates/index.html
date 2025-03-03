@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="upload-section">
+    <h2>Upload WhatsApp Chat File</h2>
+    <form action="{{ url_for('upload_file') }}" method="POST" enctype="multipart/form-data">
+        <label for="file">Choose a .txt file:</label>
+        <input type="file" id="file" name="file" accept=".txt" required>
+        <button type="submit">Upload</button>
+    </form>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="flash-messages">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+</section>
+
+<section class="report-section">
+    <h2>Generated Reports</h2>
+    {% if reports %}
+    <table class="report-table">
+        <thead>
+            <tr>
+                <th>Month</th>
+                <th>Joined</th>
+                <th>Left</th>
+                <th>Active Workers</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for month, stats in reports.items() %}
+            <tr>
+                <td>{{ month }}</td>
+                <td>{{ stats['joined'] }}</td>
+                <td>{{ stats['left'] }}</td>
+                <td>{{ stats['workers_count'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No reports available. Upload a file to generate a report.</p>
+    {% endif %}
+</section>
+{% endblock %}
+```
+
+### Step 4: Review the Code
+1. **File Upload Interface**:
+   - The form uses `POST` and `enctype="multipart/form-data"` to handle file uploads.
+   - The file input field is restricted to `.txt` files using the `accept` attribute.
+   - The `required` attribute ensures the user cannot submit an empty form.
+   - The form action dynamically points to the `upload_file` route using Flask's `url_for`.
+2. **Report Display Section**:
+   - The section dynamically displays reports using Jinja2 loops.
+   - If no reports are available, a fallback message is displayed.
+3. **Integration with `base.html`**:
+   - The file extends `base.html` and places its content within the `{% block content %}` directive.
+4. **Flash Messages**:
+   - Flash messages are displayed to provide feedback to the user (e.g., success or error messages).
+5. **Conventions**:
+   - The file adheres to Flask and Jinja2 conventions, including the use of `url_for` and `get_flashed_messages`.
+   - The structure and styling are consistent with the rest of the codebase.
+
+### Final Output
+```
+{% extends "base.html" %}
+
+{% block content %}
+<section class="upload-section">
+    <h2>Upload WhatsApp Chat File</h2>
+    <form action="{{ url_for('upload_file') }}" method="POST" enctype="multipart/form-data">
+        <label for="file">Choose a .txt file:</label>
+        <input type="file" id="file" name="file" accept=".txt" required>
+        <button type="submit">Upload</button>
+    </form>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="flash-messages">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+</section>
+
+<section class="report-section">
+    <h2>Generated Reports</h2>
+    {% if reports %}
+    <div class="report-container">
+        {% for month, stats in reports.items() %}
+        <div class="report-card">
+            <h3>{{ month }}</h3>
+            <p><strong>Joined:</strong> {{ stats['joined'] }}</p>
+            <p><strong>Left:</strong> {{ stats['left'] }}</p>
+            <p><strong>Active Workers:</strong> {{ stats['workers_count'] }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No reports available. Upload a file to generate a report.</p>
+    {% endif %}
+</section>
+{% endblock %}
