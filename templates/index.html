@@ -22,26 +22,16 @@
 <section class="report-section">
     <h2>Generated Reports</h2>
     {% if reports %}
-    <table class="report-table">
-        <thead>
-            <tr>
-                <th>Month</th>
-                <th>Joined</th>
-                <th>Left</th>
-                <th>Active Workers</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for month, stats in reports.items() %}
-            <tr>
-                <td>{{ month }}</td>
-                <td>{{ stats['joined'] }}</td>
-                <td>{{ stats['left'] }}</td>
-                <td>{{ stats['workers_count'] }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="report-container">
+        {% for month, stats in reports.items() %}
+        <div class="report-card">
+            <h3>{{ month }}</h3>
+            <p><strong>Joined:</strong> {{ stats['joined'] }}</p>
+            <p><strong>Left:</strong> {{ stats['left'] }}</p>
+            <p><strong>Active Workers:</strong> {{ stats['workers_count'] }}</p>
+        </div>
+        {% endfor %}
+    </div>
     {% else %}
     <p>No reports available. Upload a file to generate a report.</p>
     {% endif %}

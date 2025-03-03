@@ -81,7 +81,7 @@ def organize_data_by_date(presence_data):
     """
     organized_data = {}
     for date, events in presence_data.items():
-        organized_data[date] = sorted(events, key=lambda x: x['worker_name'])
+        organized_data[date] = sorted(events, key=lambda x: x.get('worker_name', ''))
     return organized_data
 ```
 
@@ -196,5 +196,5 @@ def organize_data_by_date(presence_data):
     """
     organized_data = {}
     for date, events in presence_data.items():
-        organized_data[date] = sorted(events, key=lambda x: x['worker_name'])
+        organized_data[date] = sorted(events, key=lambda x: x.get('worker_name', ''))
     return organized_data

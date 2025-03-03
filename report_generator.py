@@ -22,8 +22,6 @@ def generate_monthly_report(presence_data):
                 monthly_report[month_key]['workers'].add(event['worker_name'])
                 # Increment presence days for the worker
                 monthly_report[month_key]['presence_days'][event['worker_name']] += 1
-                # Increment presence days for the worker
-                monthly_report[month_key]['presence_days'][event['worker_name']] += 1
             elif event['event'] == 'left':
                 monthly_report[month_key]['left'] += 1
                 monthly_report[month_key]['workers'].discard(event['worker_name'])
@@ -60,12 +58,9 @@ def format_monthly_report(monthly_report):
         report_lines.append("  Presence Days:")
         for worker, days in stats['presence_days'].items():
             report_lines.append(f"    {worker}: {days} days")
-        report_lines.append("  Presence Days:")
-        for worker, days in stats['presence_days'].items():
-            report_lines.append(f"    {worker}: {days} days")
         report_lines.append("-" * 25)  # Separator
 
-    return "\\\n".join(report_lines)
+    return "\\\\n".join(report_lines)
 
 if __name__ == "__main__":
     # Example usage

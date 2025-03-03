@@ -37,10 +37,15 @@ document.addEventListener("DOMContentLoaded", () => {
             const file = files[0];
             if (file.type === "text/plain") {
                 fileInput.files = files;
+                uploadForm.classList.add("valid-file"); // Add visual feedback for valid file
                 displayFlashMessage("File ready for upload. Click 'Upload' to proceed.", "success");
             } else {
+                uploadForm.classList.add("invalid-file"); // Add visual feedback for invalid file
                 displayFlashMessage("Invalid file type. Please upload a .txt file.");
             }
+            setTimeout(() => {
+                uploadForm.classList.remove("valid-file", "invalid-file"); // Remove feedback after 2 seconds
+            }, 2000);
         }
     });
 

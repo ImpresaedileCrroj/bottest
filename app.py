@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 import os
 from werkzeug.utils import secure_filename
 from parser import parse_chat_file
@@ -7,6 +7,7 @@ from report_generator import generate_monthly_report
 # Initialize Flask application
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Replace with a secure key in production
+app.config['SESSION_TYPE'] = 'filesystem'  # Store session data on the filesystem
 
 # Configure upload folder and allowed file extensions
 UPLOAD_FOLDER = 'uploads'
@@ -46,7 +47,8 @@ def upload_file():
         presence_data = parse_chat_file(file_path)
         monthly_report = generate_monthly_report(presence_data)
         flash('File successfully uploaded and processed')
-        return redirect(url_for('report', report=monthly_report))
+        session['monthly_report'] = monthly_report  # Save the report in the session
+        return redirect(url_for('report'))
 
     flash('Allowed file types are: txt')
     return redirect(request.url)
@@ -54,7 +56,7 @@ def upload_file():
 @app.route('/report')
 def report():
     """Render the presence report."""
-    report = request.args.get('report', {})
+    report = session.get('monthly_report', {})  # Retrieve the report from the session
     return render_template('report.html', reports=report)
 
 if __name__ == '__main__':
