@@ -59,13 +59,19 @@ def extract_presence_event(message):
         list: A list of worker names extracted from the message,
               or None if the message does not represent a presence list.
     """
-    # Pattern for presence list messages
-    presence_list_pattern = r'^Presenze: (.+)$'
+    # Patterns for presence events specific to construction sites
+    entered_site_pattern = r'^(.*) entered the site$'
+    exited_site_pattern = r'^(.*) exited the site$'
 
-    presence_list_match = re.match(presence_list_pattern, message)
-    if presence_list_match:
-        workers = presence_list_match.group(1).split(',')
-        return [worker.strip() for worker in workers]
+    entered_match = re.match(entered_site_pattern, message)
+    if entered_match:
+        worker_name = entered_match.group(1).strip()
+        return {'worker_name': worker_name, 'event': 'entered'}
+
+    exited_match = re.match(exited_site_pattern, message)
+    if exited_match:
+        worker_name = exited_match.group(1).strip()
+        return {'worker_name': worker_name, 'event': 'exited'}
 
     return None
 

@@ -30,6 +30,7 @@ def generate_monthly_report(presence_data):
     for month in monthly_report:
         monthly_report[month]['workers_count'] = len(monthly_report[month]['workers'])
         monthly_report[month]['presence_days'] = dict(monthly_report[month]['presence_days'])
+        monthly_report[month]['total_presence_days'] = sum(monthly_report[month]['presence_days'].values())
         del monthly_report[month]['workers']  # Remove the set of workers
 
     return dict(monthly_report)
@@ -55,12 +56,13 @@ def format_monthly_report(monthly_report):
         report_lines.append(f"  Joined: {stats['joined']}")
         report_lines.append(f"  Left: {stats['left']}")
         report_lines.append(f"  Active Workers: {stats['workers_count']}")
+        report_lines.append(f"  Total Presence Days: {stats['total_presence_days']}")
         report_lines.append("  Presence Days:")
         for worker, days in stats['presence_days'].items():
             report_lines.append(f"    {worker}: {days} days")
         report_lines.append("-" * 25)  # Separator
 
-    return "\\\\n".join(report_lines)
+    return "\\\\\n".join(report_lines)
 
 if __name__ == "__main__":
     # Example usage
