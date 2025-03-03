@@ -9,7 +9,6 @@ The WhatsApp Group Presence Report Bot is a web-based application that allows us
 - Parse chat files to extract presence events (e.g., "joined" or "left").
 - Generate monthly reports summarizing group activity.
 - View reports in a user-friendly web interface.
-
 ### Setup
 1. Clone the repository:
    ```bash
